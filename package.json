@@ -1,0 +1,24 @@
+{
+  "name": "playwright-self-healing",
+  "version": "1.0.0",
+  "description": "Self-healing Playwright framework with AI locator suggestions",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:auth": "playwright test tests/specs/auth.spec.ts",
+    "test:dashboard": "playwright test tests/specs/dashboard.spec.ts",
+    "test:single-browser": "playwright test --project=chromium",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen https://demo.applitools.com/app",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^latest",
+    "@types/node": "^latest",
+    "typescript": "^latest",
+    "axios": "^latest",
+    "dotenv": "^latest",
+    "ts-node": "^latest"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.env.local
+test-results/
+playwright-report/
+.DS_Store
+*.log
+src/logging/healingReport.json
