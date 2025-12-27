@@ -10,15 +10,15 @@
     "test:dashboard": "playwright test tests/specs/dashboard.spec.ts",
     "test:single-browser": "playwright test --project=chromium",
     "report": "playwright show-report",
-    "codegen": "playwright codegen https://demo.applitools.com/app",
+    "codegen": "playwright codegen https://demo.applitools.com",
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
-    "@playwright/test": "^latest",
-    "@types/node": "^latest",
-    "typescript": "^latest",
-    "axios": "^latest",
-    "dotenv": "^latest",
-    "ts-node": "^latest"
+    "@playwright/test": "latest",
+    "@types/node": "latest",
+    "typescript": "latest",
+    "axios": "latest",
+    "dotenv": "latest",
+    "ts-node": "latest"
   }
 }
