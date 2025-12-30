@@ -2,11 +2,11 @@ export const PROMPT_TEMPLATES = {
   /**
    * Prompt for generating locator suggestions
    */
-  locatorSuggestion: (elementName: string, domSnapshot: string, action: 'click' | 'fill'): string => `
+  locatorSuggestion: (elementName: string, domSnapshot: string, action: 'click' | 'fill' | 'selectOption'): string => `
 You are a Playwright test automation expert. Your task is to suggest CSS selectors and XPath expressions for locating a web element.
 
 **Target Element:** "${elementName}"
-**Action:** ${action === 'click' ? 'Click the element' : 'Fill the element with text'}
+**Action:** ${action === 'click' ? 'Click the element' : action === 'fill' ? 'Fill the element with text' : 'Select an option in a dropdown'}
 
 **Current DOM Context:**
 \`\`\`html

@@ -42,7 +42,7 @@ export class LocatorSuggester {
   async suggestLocators(
     elementName: string,
     domSnapshot: string,
-    action: 'click' | 'fill'
+    action: 'click' | 'fill' | 'selectOption'
   ): Promise<string[]> {
     try {
       const prompt = PROMPT_TEMPLATES.locatorSuggestion(elementName, domSnapshot, action);

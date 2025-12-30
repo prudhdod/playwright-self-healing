@@ -24,7 +24,7 @@ export class HealingEngine {
    */
   async attemptHealing(
     originalLocator: Locator,
-    action: 'click' | 'fill',
+    action: 'click' | 'fill' | 'selectOption',
     elementName?: string,
     fillValue?: string
   ): Promise<boolean> {
@@ -67,8 +67,12 @@ export class HealingEngine {
 
         if (suggestions.length > 0) {
           console.log(`🎯 AI suggested locators: ${suggestions.join(', ')}`);
-          // Optionally, try first suggestion automatically
-          // await this.tryLocatorSuggestions(suggestions, action, fillValue);
+          const used = await this.tryLocatorSuggestions(suggestions, action, fillValue);
+          if (used) {
+            healingAttempt.healed = true;
+            healingAttempt.suggestedLocators.push(used);
+            console.log(`✅ Healed using AI suggestion: ${used}`);
+          }
         }
       }
     } catch (error) {
@@ -88,23 +92,30 @@ export class HealingEngine {
    */
   private async tryLocatorSuggestions(
     suggestions: string[],
-    action: 'click' | 'fill',
+    action: 'click' | 'fill' | 'selectOption',
     fillValue?: string
-  ): Promise<boolean> {
+  ): Promise<string | null> {
     for (const selector of suggestions) {
       try {
         const locator = this.page.locator(selector);
         if (action === 'click') {
           await locator.click({ timeout: 3000 });
-        } else if (action === 'fill' && fillValue) {
+        } else if (action === 'fill' && typeof fillValue !== 'undefined') {
           await locator.fill(fillValue, { timeout: 3000 });
+        } else if (action === 'selectOption' && typeof fillValue !== 'undefined') {
+          try {
+            await locator.selectOption(fillValue, { timeout: 3000 });
+          } catch {
+            const optionByText = locator.locator(`option:has-text("${fillValue}")`);
+            await optionByText.click({ timeout: 3000 });
+          }
         }
         console.log(`✅ Successfully used suggested selector: ${selector}`);
-        return true;
+        return selector;
       } catch {
         // Continue to next suggestion
       }
     }
-    return false;
+    return null;
   }
 }

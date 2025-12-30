@@ -15,7 +15,23 @@ export default defineConfig({
     ['list'],
   ],
   use: {
-    baseURL: process.env.BASE_URL || 'https://demo.applitools.com',
+    baseURL: process.env.BASE_URL || 'https://practicesoftwaretesting.com',
+    // If a daily auth storage state exists, reuse it for all tests by default.
+    // Individual tests (like registration) can opt-out with `test.use({ storageState: undefined })`.
+    storageState: (() => {
+      try {
+        if (process.env.DISABLE_DAILY_AUTH === '1') return undefined;
+        // require fs at runtime
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const fs = require('fs');
+        const path = require('path');
+        const p = path.resolve(process.cwd(), '.auth', 'daily.json');
+        if (fs.existsSync(p)) return p;
+      } catch (e) {
+        // ignore
+      }
+      return undefined;
+    })(),
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

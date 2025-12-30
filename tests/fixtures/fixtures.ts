@@ -1,25 +1,21 @@
+// tests/fixtures/fixtures.ts
 import { test as base, expect } from '@playwright/test';
 import { LoginPage } from '@pages/loginPage';
-import { DashboardPage } from '@pages/dashboardPage';
+import { RegisterPage } from '@pages/registerPage';
 
 type PageFixtures = {
   loginPage: LoginPage;
-  dashboardPage: DashboardPage;
+  registerPage: RegisterPage;
 };
 
-/**
- * Custom test with page objects
- */
 export const test = base.extend<PageFixtures>({
-  loginPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.goto();
-    await use(loginPage);
+  registerPage: async ({ page }, use) => {
+    const regPage = new RegisterPage(page);
+    await use(regPage);
   },
-
-  dashboardPage: async ({ page }, use) => {
-    const dashboardPage = new DashboardPage(page);
-    await use(dashboardPage);
+  loginPage: async ({ page }, use) => {
+    const lp = new LoginPage(page);
+    await use(lp);
   },
 });
 

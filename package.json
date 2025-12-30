@@ -11,6 +11,7 @@
     "test:single-browser": "playwright test --project=chromium",
     "report": "playwright show-report",
     "codegen": "playwright codegen https://demo.applitools.com",
+    "ensure-auth": "npx playwright test tests/specs/ensureAuth.spec.ts --project=chromium",
     "lint": "tsc --noEmit"
   },
   "devDependencies": {

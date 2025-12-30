@@ -41,11 +41,23 @@ export class BasePage {
     }
   }
 
+    /**
+   * Safe Select Dropdown with self-healing fallback
+   */
+  async safeSelectOption(locator: Locator, value: string, name?: string) {
+    try {
+      await locator.selectOption(value, { timeout: 5000 });
+    } catch (error) {
+      console.warn(`Select failed for ${name || 'element'}. Attempting self-healing...`);
+      await this.healingEngine.attemptHealing(locator, 'selectOption', name, value);
+    }
+  }
+
   /**
    * Get element with resilient selectors (fallback chain)
    */
   getElementByRole(role: string, name: string | RegExp) {
-    return this.page.getByRole(role, { name });
+    return this.page.getByRole(role as any, { name });
   }
 
   getElementByText(text: string | RegExp) {
@@ -59,7 +71,7 @@ export class BasePage {
   /**
    * Wait for navigation and element visibility
    */
-  async waitForNavigation(timeout = 10000) {
+  async waitForNavigation(timeout = 100000) {
     await this.page.waitForLoadState('networkidle');
   }
 }

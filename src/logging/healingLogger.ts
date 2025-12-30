@@ -7,7 +7,7 @@ dotenv.config();
 export type HealingAttempt = {
   timestamp: string;
   elementName?: string;
-  action: 'click' | 'fill';
+  action: 'click' | 'fill' | 'selectOption';
   originalSelector: string;
   fallbackAttempts: string[];
   suggestedLocators: string[];
