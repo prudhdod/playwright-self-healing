@@ -18,6 +18,7 @@ test.describe('Checkout challenge', () => {
     const creds = await getDailyCredentials();
     await loginPage.goto();
     await loginPage.login(creds.email, creds.password);
+    await expect(page).toHaveURL(/.*\/(profile|account|home|products)/);
     await expect(page.locator('[data-test="page-title"]')).toBeVisible();
     // Ensure starting from site root
     await page.locator('[data-test="nav-home"]').click();
@@ -73,60 +74,3 @@ test.describe('Checkout challenge', () => {
     }
   });
 });
-
-
-
-
-// import { test, expect } from '@playwright/test';
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://practicesoftwaretesting.com/');
-//   await page.locator('[data-test="nav-sign-in"]').click();
-//   await page.locator('[data-test="password"]').click();
-//   await page.locator('[data-test="password"]').click();
-//   await page.locator('[data-test="password"]').fill('Q2@Atest123!');
-//   await page.locator('[data-test="email"]').click();
-//   await page.locator('[data-test="email"]').fill('qa_daily_1767062488995@example.com');
-//   await page.locator('[data-test="login-submit"]').click();
-//   await expect(page.locator('[data-test="page-title"]')).toBeVisible();
-//   await page.locator('[data-test="nav-menu"]').click();
-//   await expect(page.locator('[data-test="page-title"]')).toBeVisible();
-//   await expect(page.locator('[data-test="nav-menu"]')).toContainText('QA Daily');
-//   await expect(page.locator('[data-test="nav-profile"]')).toBeVisible();
-// });
-
-
-// import { test, expect } from '@playwright/test';
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://practicesoftwaretesting.com/product/01KDPCA8QKFEGHZT1J4R29E6N8');
-//   await page.locator('[data-test="add-to-cart"]').click();
-//   await page.locator('[data-test="nav-cart"]').click();
-//   await page.locator('[data-test="proceed-1"]').click();
-//   await page.locator('[data-test="email"]').click();
-//   await page.locator('[data-test="password"]').click();
-//   await page.locator('[data-test="login-submit"]').click();
-//   await page.locator('[data-test="email"]').click();
-//   await page.locator('[data-test="email"]').fill('qa@aafa.com');
-//   await page.locator('[data-test="email"]').press('Tab');
-//   await page.locator('[data-test="password"]').fill('sadadasdasdasdasdasd');
-//   await page.locator('[data-test="login-submit"]').click();
-//   await page.locator('[data-test="login-submit"]').click();
-// });
-
-// import { test, expect } from '@playwright/test';
-
-// test('test', async ({ page }) => {
-//   await page.goto('https://practicesoftwaretesting.com/product/01KDPCA8QKFEGHZT1J4R29E6N8');
-//   await page.locator('[data-test="nav-categories"]').click();
-//   await page.locator('[data-test="nav-power-tools"]').click();
-//   await page.locator('[data-test="product-01KDPFR48CANJ8ADQHVFG2AKXZ"]').click();
-//   await page.locator('[data-test="add-to-cart"]').click();
-//   await page.locator('div').filter({ hasText: 'Product added to shopping' }).nth(2).click();
-//   await page.getByText('Practice Black Box Testing & Bug Hunting Testing Guide 🐛 Bug Hunting').click();
-//   await expect(page.locator('[data-test="nav-cart"]')).toBeVisible();
-//   await expect(page.locator('[data-test="cart-quantity"]')).toContainText('1');
-//   await page.locator('[data-test="add-to-cart"]').click();
-//   await expect(page.locator('div').filter({ hasText: 'Product added to shopping' }).nth(2)).toBeVisible();
-//   await page.getByRole('alert', { name: 'Product added to shopping' }).click();
-// });
